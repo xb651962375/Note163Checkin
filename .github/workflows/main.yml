@@ -1,13 +1,18 @@
 name: Run
 
-on:
-  workflow_dispatch:
-  repository_dispatch:
-
+# on:
+#   workflow_dispatch:
+#   repository_dispatch:
+on: 
+  schedule:
+    - cron: '30 17 * * *' # UTC+8小时=北京时间 17代表凌晨一点
+  watch:
+    types: [started]
 jobs:
   build:
 
-    if: github.actor == github.repository_owner
+    # if: github.actor == github.repository_owner
+    if: github.event.repository.owner.id == github.event.sender.id || github.event_name == 'schedule'
     runs-on: ubuntu-latest
 
     steps:
