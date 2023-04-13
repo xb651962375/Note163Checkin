@@ -190,7 +190,7 @@ async Task Notify(string msg, bool isFailed = false)
         Console.WriteLine("要追加到文件的字符串为：" + log_msg);
         // 打开或创建文件并追加内容
         using (StreamWriter writer = new StreamWriter("logfile.txt", true)) {
-            writer.WriteLine(message);
+            writer.WriteLine(log_msg);
         }
     }
 }
