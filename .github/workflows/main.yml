@@ -16,16 +16,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@main
+    - name: Get log
+      uses: actions/checkout@master
+    # - uses: actions/checkout@main
     - name: Run
       uses: coactions/setup-xvfb@main
       with:
-        run: dotnet run
+        # run: dotnet run
+        run: curl www.baidu.com
       env: 
         CONF: ${{ secrets.CONF }}
         
-    # - name: Push log #更新日志
-    #   uses: stefanzweifel/git-auto-commit-action@v4
-    #   with:
-    #     commit_message: auto-checkin
-    #     branch: main
+    - name: Push log #更新日志
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: auto-checkin
+        branch: main
