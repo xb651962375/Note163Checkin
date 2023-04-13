@@ -2,6 +2,7 @@
 using PuppeteerSharp;
 using StackExchange.Redis;
 using System.Text.Json;
+using System.IO;
 
 const int TIMEOUT_MS = 60_000;
 
@@ -182,6 +183,15 @@ async Task Notify(string msg, bool isFailed = false)
     if (_conf.ScType == "Always" || (isFailed && _conf.ScType == "Failed"))
     {
         await _scClient.GetAsync($"https://sc.ftqq.com/{_conf.ScKey}.send?text={msg}");
+        
+        // 输出一份日志文件
+        DateTime now = DateTime.Now;
+        string log_msg = $"{now.ToString("yyyy-MM-dd HH:mm:ss")} {msg}"; // 将日期和字符串拼接成一个完整的字符串
+        Console.WriteLine("要追加到文件的字符串为：" + log_msg);
+        // 打开或创建文件并追加内容
+        using (StreamWriter writer = new StreamWriter("logfile.txt", true)) {
+            writer.WriteLine(message);
+        }
     }
 }
 
