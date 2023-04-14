@@ -16,6 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Setup timezone
+      uses: zcong1993/setup-timezone@master
+      with:
+        timezone: Asia/Shanghai  
     - name: Get log
       uses: actions/checkout@master
     # - uses: actions/checkout@main
